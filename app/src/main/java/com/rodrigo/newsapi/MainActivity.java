@@ -1,13 +1,13 @@
 package com.rodrigo.newsapi;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-import android.util.Log;
-
+import java.io.IOException;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,11 +18,14 @@ public class MainActivity extends AppCompatActivity {
     private static final String BASE_URL = "https://newsapi.org/";
     private static final String API_KEY = "5d25a6ea55ae4ff6b36235e3cdab69e7";
     private static final String TAG = "MainActivity";
+    private TextView tvResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        tvResult = findViewById(R.id.tv_result);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -30,27 +33,42 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         NewsAPI newsAPI = retrofit.create(NewsAPI.class);
-        Call<List<News>> news = newsAPI.getAllNews("bitcoin", API_KEY);
-        news.enqueue(new Callback<List<News>>() {
+        Call<NewsResponse> newsCall = newsAPI.getAllNews("bitcoin", API_KEY);
+
+        newsCall.enqueue(new Callback<NewsResponse>() {
             @Override
-            public void onResponse(@NonNull Call<List<News>> call, @NonNull Response<List<News>> response) {
-                handleResponse(response);
+            public void onResponse(@NonNull Call<NewsResponse> call, @NonNull Response<NewsResponse> response) {
+                try {
+                    handleResponse(response);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<News>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<NewsResponse> call, @NonNull Throwable t) {
                 handleFailure(t);
             }
         });
     }
 
-    private <T> void handleResponse(Response<T> response) {
-        if (!response.isSuccessful()) {
-            Log.d(TAG, "Problemas: código http: " + response.code());
+    private void handleResponse(Response<NewsResponse> response) throws IOException {
+        if (response.isSuccessful()) {
+            NewsResponse newsResponse = response.body();
+            if (newsResponse != null) {
+                List<News> newsList = newsResponse.getArticles();
+                if (newsList != null && !newsList.isEmpty()) {
+                    StringBuilder displayText = new StringBuilder();
+                    displayText.append(newsList.get(0).getTitle());
+                    /*for (News news : newsList) {
+                        displayText.append(news.getTitle()).append("\n");
+                    }*/
+                    tvResult.setText(displayText.toString());
+                }
+            }
+        } else {
+            Log.d(TAG, "Error en la respuesta: " + response.errorBody().string());
         }
-
-        /*T body = response.body();
-        text.setText(body.toString());*/
     }
 
     private void handleFailure(Throwable t) {

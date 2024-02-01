@@ -1,12 +1,30 @@
 package com.rodrigo.newsapi;
 
-public class News {
-    private String author, title, description;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-    public News(String author, String title, String description) {
+@Entity(tableName = "news")
+public class News {
+
+    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
+    @ColumnInfo(name = "author")
+    private String author;
+
+    @ColumnInfo(name = "title")
+    private String title;
+
+    @ColumnInfo(name = "description")
+    private String description;
+
+    public News(String author, String title, String description, int id) {
         this.author = author;
         this.title = title;
         this.description = description;
+        this.id = id;
     }
 
     public String getAuthor() {
@@ -31,5 +49,13 @@ public class News {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
