@@ -20,12 +20,15 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private TextView tvResult;
 
+    private NewsService mNewsService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         tvResult = findViewById(R.id.tv_result);
+        mNewsService = NewsService.get(this);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         NewsAPI newsAPI = retrofit.create(NewsAPI.class);
         Call<NewsResponse> newsCall = newsAPI.getAllNews("bitcoin", API_KEY);
+        mNewsService.saveNews(new News("a", "b", "c"));
 
         newsCall.enqueue(new Callback<NewsResponse>() {
             @Override

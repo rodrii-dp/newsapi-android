@@ -20,11 +20,10 @@ public class News {
     @ColumnInfo(name = "description")
     private String description;
 
-    public News(String author, String title, String description, int id) {
+    public News(String author, String title, String description) {
         this.author = author;
         this.title = title;
         this.description = description;
-        this.id = id;
     }
 
     public String getAuthor() {
