@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         NewsAPI newsAPI = retrofit.create(NewsAPI.class);
-        Call<NewsResponse> newsCall = newsAPI.getAllNews("bitcoin", API_KEY);
-        mNewsService.saveNews(new News("a", "b", "c"));
+        Call<NewsResponse> newsCall = newsAPI.getAllNews("tech", API_KEY);
+        // mNewsService.saveNews(new News("a", "b", "c"));
 
         newsCall.enqueue(new Callback<NewsResponse>() {
             @Override
@@ -64,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
                 if (newsList != null && !newsList.isEmpty()) {
                     StringBuilder displayText = new StringBuilder();
                     displayText.append(newsList.get(0).getTitle());
-                    /*for (News news : newsList) {
+                    for (News news : newsList) {
                         displayText.append(news.getTitle()).append("\n");
-                    }*/
+                    }
                     tvResult.setText(displayText.toString());
                 }
             }

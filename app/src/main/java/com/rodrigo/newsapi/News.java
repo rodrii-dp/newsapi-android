@@ -20,10 +20,18 @@ public class News {
     @ColumnInfo(name = "description")
     private String description;
 
-    public News(String author, String title, String description) {
+    @ColumnInfo(name = "content")
+    private String content;
+
+    @ColumnInfo(name = "imageUrl")
+    private String imageUrl;
+
+    public News(String author, String title, String description, String content, String imageUrl) {
         this.author = author;
         this.title = title;
         this.description = description;
+        this.content = content;
+        this.imageUrl = imageUrl;
     }
 
     public String getAuthor() {
@@ -56,5 +64,21 @@ public class News {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
