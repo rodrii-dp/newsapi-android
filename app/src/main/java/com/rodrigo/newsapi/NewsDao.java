@@ -13,6 +13,9 @@ public interface NewsDao {
     @Query("SELECT * FROM news")
     List<News> getSavedNews();
 
+    @Query("SELECT * FROM news WHERE title = :title")
+    List<News> getNewsByTitle(String title);
+
     @Insert
     void saveNews(News news);
 
