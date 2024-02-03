@@ -26,6 +26,9 @@ public class News {
     @ColumnInfo(name = "imageUrl")
     private String imageUrl;
 
+    @ColumnInfo(name = "userId")
+    private int userId;
+
     public News(String author, String title, String description, String content, String imageUrl) {
         this.author = author;
         this.title = title;
@@ -80,5 +83,13 @@ public class News {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

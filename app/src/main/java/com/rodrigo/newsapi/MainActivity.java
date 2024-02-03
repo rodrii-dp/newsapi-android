@@ -19,8 +19,10 @@ public class MainActivity extends AppCompatActivity {
     private static final String API_KEY = "5d25a6ea55ae4ff6b36235e3cdab69e7";
     private static final String TAG = "MainActivity";
     private TextView tvResult;
+    private  TextView tvResult2;
 
     private NewsService mNewsService;
+    private UserService mUserService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +30,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tvResult = findViewById(R.id.tv_result);
+        tvResult2 = findViewById(R.id.tv_result2);
         mNewsService = NewsService.get(this);
+        mUserService = UserService.get(this);
+
+        User user = new User("rodrigo");
+        mUserService.saveUser(user);
+
+        News news1 = new News("Autor1", "Título1", "Descripción1", "Contenido1", "https://imagen1.com");
+        News news2 = new News("Autor2", "Título2", "Descripción2", "Contenido2", "https://imagen2.com");
+
+        mNewsService.saveNews(news1, "rodrigo");
+        mNewsService.saveNews(news2, "rodrigo");
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -36,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         NewsAPI newsAPI = retrofit.create(NewsAPI.class);
-        Call<NewsResponse> newsCall = newsAPI.getAllNews("tech", API_KEY);
+        Call<NewsResponse> newsCall = newsAPI.getAllNews("bitcoin", API_KEY);
         // mNewsService.saveNews(new News("a", "b", "c"));
 
         newsCall.enqueue(new Callback<NewsResponse>() {
@@ -44,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<NewsResponse> call, @NonNull Response<NewsResponse> response) {
                 try {
                     handleResponse(response);
+                    displaySavedNewsForUser("rodrigo");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -67,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     for (News news : newsList) {
                         displayText.append(news.getTitle()).append("\n");
                     }
-                    tvResult.setText(displayText.toString());
+                    //tvResult.setText(displayText.toString());
                 }
             }
         } else {
@@ -77,5 +91,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleFailure(Throwable t) {
         Log.d(TAG, "Problemas Graves: " + t.getLocalizedMessage());
+    }
+
+    private void displaySavedNewsForUser(String userName) {
+        List<News> savedNews = mNewsService.getNewsByUser(userName);
+        if (savedNews != null && !savedNews.isEmpty()) {
+            StringBuilder displayText = new StringBuilder("Noticias Guardadas:\n");
+            for (News news : savedNews) {
+                displayText.append(news.getTitle()).append("\n");
+            }
+            tvResult2.setText(displayText.toString());
+        } else {
+            tvResult2.setText("No hay noticias guardadas para este usuario.");
+        }
     }
 }

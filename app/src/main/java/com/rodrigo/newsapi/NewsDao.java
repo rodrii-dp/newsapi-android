@@ -9,9 +9,8 @@ import java.util.List;
 
 @Dao
 public interface NewsDao {
-
-    @Query("SELECT * FROM news")
-    List<News> getSavedNews();
+    @Query("SELECT * FROM news WHERE userId = :id")
+    List<News> getNewsByUserId(int id);
 
     @Query("SELECT * FROM news WHERE title = :title")
     List<News> getNewsByTitle(String title);

@@ -4,16 +4,19 @@ import android.content.Context;
 
 import androidx.room.Room;
 
+import java.util.Collections;
 import java.util.List;
 
 public class NewsService {
     private static NewsService sUserService;
-    private NewsDao mUserDao;
+    private NewsDao mNewsDao;
+    private UserDao mUserDao;
 
     public NewsService(Context context) {
         Context appContext = context.getApplicationContext();
         NewsDatabase database =  Room.databaseBuilder(appContext, NewsDatabase.class, "news").allowMainThreadQueries().build();
-        mUserDao = database.getSavedNewsDao();
+        mNewsDao = database.getSavedNewsDao();
+        mUserDao = database.getUserDao();
     }
 
     public static NewsService get(Context context) {
@@ -24,12 +27,21 @@ public class NewsService {
         return sUserService;
     }
 
-    public List<News> getUser(String name) {
-        return mUserDao.getSavedNews();
+    public List<News> getNewsByUser(String userName) {
+        User user = mUserDao.getUserByName(userName);
+
+        if (user != null) {
+            return mNewsDao.getNewsByUserId(user.getId());
+        } else {
+            return Collections.emptyList();
+        }
     }
 
-    public void saveNews(News news) {
-        mUserDao.saveNews(news);
+    public void saveNews(News news, String userName) {
+        User user = mUserDao.getUserByName(userName);
+
+        news.setUserId(user.getId());
+
+        mNewsDao.saveNews(news);
     }
 }
-
