@@ -24,5 +24,8 @@ public class UserService {
     public void saveUser(User user) {
         mUserDao.saveUser(user);
     }
-}
 
+    public void updatePassword(String username, String newPassword) {
+        mUserDao.updatePassword(username, newPassword);
+    }
+}

@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         mNewsService = NewsService.get(this);
         mUserService = UserService.get(this);
 
-        User user = new User("rodrigo");
+        User user = new User("rodrigo", "micontrasena");
         mUserService.saveUser(user);
 
         News news1 = new News("Autor1", "Título1", "Descripción1", "Contenido1", "https://imagen1.com");
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     for (News news : newsList) {
                         displayText.append(news.getTitle()).append("\n");
                     }
-                    //tvResult.setText(displayText.toString());
+                    tvResult.setText(displayText.toString());
                 }
             }
         } else {
