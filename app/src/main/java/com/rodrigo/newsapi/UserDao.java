@@ -17,6 +17,4 @@ public interface UserDao {
 
     @Query("UPDATE users SET password = :newPassword WHERE name = :username")
     void updatePassword(String username, String newPassword);
-
-    void updatePassword(String password);
 }
