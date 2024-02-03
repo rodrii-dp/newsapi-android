@@ -15,6 +15,7 @@ public class User {
     @ColumnInfo(name = "name")
     private String name;
 
+    @ColumnInfo(name = "password")
     private String password;
 
     public User(String name, String password) {
