@@ -28,4 +28,7 @@ public class UserService {
     public void updatePassword(String username, String newPassword) {
         mUserDao.updatePassword(username, newPassword);
     }
+    public User getUserbyName(String username){
+        return mUserDao.getUserByName(username);
+    }
 }
