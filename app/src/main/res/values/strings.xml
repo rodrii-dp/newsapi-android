@@ -3,4 +3,8 @@
     <string name="usuario">Usuario</string>
     <string name="contrasena">Contraseña</string>
     <string name="news">News</string>
+    <string name="perfililustrativo">Perfil Ilustrativo</string>
+    <string name="iniciar_sesion">Iniciar  sesión</string>
+    <string name="crearCuenta">Crear cuenta</string>
+    <string name="no_cuenta">¿No tienes una cuenta?</string>
 </resources>
