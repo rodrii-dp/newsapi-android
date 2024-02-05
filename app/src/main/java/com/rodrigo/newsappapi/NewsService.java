@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class NewsService {
-    private static NewsService sUserService;
+    private static NewsService sNewsService;
     private NewsDao mNewsDao;
     private UserDao mUserDao;
 
@@ -22,11 +22,11 @@ public class NewsService {
     }
 
     public static NewsService get(Context context) {
-        if (sUserService == null) {
-            sUserService = new NewsService(context);
+        if (sNewsService == null) {
+            sNewsService = new NewsService(context);
         }
 
-        return sUserService;
+        return sNewsService;
     }
 
     public List<News> getNewsByUser(String userName) {
