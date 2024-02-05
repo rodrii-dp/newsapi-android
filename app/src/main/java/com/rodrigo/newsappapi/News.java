@@ -2,6 +2,7 @@ package com.rodrigo.newsappapi;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "news")
@@ -29,11 +30,19 @@ public class News {
     @ColumnInfo(name = "userId")
     private int userId;
 
+    @Ignore
     public News(String author, String title, String description, String content, String imageUrl) {
         this.author = author;
         this.title = title;
         this.description = description;
         this.content = content;
+        this.imageUrl = imageUrl;
+    }
+
+    public News(String author, String title, String description, String imageUrl) {
+        this.author = author;
+        this.title = title;
+        this.description = description;
         this.imageUrl = imageUrl;
     }
 

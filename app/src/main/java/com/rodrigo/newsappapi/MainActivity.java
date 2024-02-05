@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,10 +25,12 @@ public class MainActivity extends AppCompatActivity {
     private NewsService mNewsService;
     private UserService mUserService;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         tvResult = findViewById(R.id.tv_result);
         tvResult2 = findViewById(R.id.tv_result2);
