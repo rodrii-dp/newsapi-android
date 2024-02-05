@@ -91,7 +91,8 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="10dp"
             android:minHeight="48dp"
             android:textSize="18sp"
             android:textColor="@color/white"
@@ -105,7 +106,7 @@
             android:clickable="true"
             android:focusable="true"
             android:minHeight="48dp"
-            android:onClick="crearCuenta"
+            android:onClick="createAccount"
             android:text="@string/crearCuenta"
             android:textColor="@color/blue"
             android:textSize="18sp" />
