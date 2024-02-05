@@ -1,5 +1,6 @@
 package com.rodrigo.newsapi;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -8,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,8 +35,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        home = R.id.
+        Intent intent = getIntent();
+        User user = (User) intent.getSerializableExtra("usuario");
 
+
+        home = R.id.action_dashboard;
+        saved = R.id.action_favorites;
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.nav);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == home) {
+                replaceFragment(new HomeFragment());
+                return true;
+            } else if (itemId == saved) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("usuario", user);
+                FavoritesFragment favoritesFragment = new FavoritesFragment();
+                favoritesFragment.setArguments(bundle);
+                replaceFragment(favoritesFragment);
+                return true;
+            } else {
+                return false;
+            }
+        });
 
 
 //        tvResult = findViewById(R.id.tv_result);
