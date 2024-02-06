@@ -3,6 +3,7 @@ package com.rodrigo.newsapi;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -26,6 +29,7 @@ public class HomeFragment extends Fragment implements NewsClickListener{
     private static final String API_KEY = "5d25a6ea55ae4ff6b36235e3cdab69e7";
     private static final String TAG = "NEWS API";
     private User user;
+    private EditText buscador, limite;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -56,7 +60,7 @@ public class HomeFragment extends Fragment implements NewsClickListener{
                 if (response.isSuccessful()) {
                     NewsResponse newsResponse = response.body();
                     if (newsResponse != null) {
-                        List<News> newsList = newsResponse.getArticles();
+                        List<News> newsList = getNews(newsResponse, view);
                         if (newsList != null && !newsList.isEmpty()) {
                             RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -75,6 +79,17 @@ public class HomeFragment extends Fragment implements NewsClickListener{
             }
         });
         return view;
+    }
+
+    @NonNull
+    private List<News> getNews(NewsResponse newsResponse, View view) {
+        limite = view.findViewById(R.id.limite);
+        buscador = view.findViewById(R.id.buscador);
+        String strBuscador = buscador.getText().toString();
+        int intLimit = Integer.parseInt(limite.getText().toString());
+        List<News> newsListFull = newsResponse.getArticles();
+        List<News> newsList = newsListFull.subList(0, intLimit);
+        return newsList;
     }
 
     @Override

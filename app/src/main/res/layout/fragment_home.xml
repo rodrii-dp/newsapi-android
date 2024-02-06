@@ -18,17 +18,35 @@
         android:id="@+id/recycler_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_home"/>
+        android:layout_below="@id/buscador"/>
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/buscador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/tv_home"
+        android:layout_below="@id/tv_home"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:ems="10"
-        android:inputType="text"
-        android:hint="Buscar" >
+        android:hint="Buscar"
+        android:inputType="text">
+
 
     </EditText>
+
+    <EditText
+        android:id="@+id/limite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_margin="10dp"
+        android:layout_below="@id/tv_home"
+        android:layout_toEndOf="@id/buscador"
+        android:hint="Número de noticias"
+        android:text="5"
+        android:inputType="number" />
+
 
 </RelativeLayout>
