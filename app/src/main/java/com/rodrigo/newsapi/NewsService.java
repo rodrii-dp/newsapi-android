@@ -44,4 +44,12 @@ public class NewsService {
 
         mNewsDao.saveNews(news);
     }
+
+    public void deleteNews(News news){
+        mNewsDao.deleteNews(news);
+    }
+
+    public int countNewsByUserIdAndTitle(int userId, String title){
+        return mNewsDao.countNewsByUserIdAndTitle(userId, title);
+    }
 }

@@ -47,12 +47,13 @@
         android:layout_below="@id/perfil"
         android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="30dp"
-        android:background="@color/white"
+        android:background="@drawable/rounded_edittext_bg"
         android:ems="10"
         android:hint="@string/usuario"
         android:inputType="text"
         android:minHeight="48dp"
         android:paddingVertical="10dp"
+        android:paddingStart="10dp"
         android:textColorHint="#757575" />
 
     <EditText
@@ -63,12 +64,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="20dp"
-        android:background="@color/white"
+        android:background="@drawable/rounded_edittext_bg"
         android:ems="10"
         android:hint="@string/contrasena"
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:paddingVertical="10dp"
+        android:paddingStart="10dp"
         android:textColorHint="#757575" />
 
     <Button

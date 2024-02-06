@@ -19,6 +19,7 @@
         android:shadowDy="1"
         android:shadowRadius="20"
         android:text="@string/news"
+        android:fontFamily="@font/salmond_semibold"
         android:textColor="@color/white"
         android:textSize="40sp" />
 
@@ -46,9 +47,10 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
-        android:background="@color/white"
+        android:background="@drawable/rounded_edittext_bg"
         android:ems="10"
         android:hint="@string/usuario"
+        android:paddingHorizontal="10dp"
         android:inputType="text"
         android:minHeight="48dp"
         android:paddingVertical="10dp"
@@ -62,11 +64,12 @@
         android:layout_below="@id/usuario"
         android:layout_centerHorizontal="true"
         android:layout_margin="30dp"
-        android:background="@color/white"
+        android:background="@drawable/rounded_edittext_bg"
         android:ems="10"
         android:hint="@string/contrasena"
         android:inputType="textPassword"
         android:minHeight="48dp"
+        android:paddingHorizontal="10dp"
         android:paddingVertical="10dp"
         android:textColorHint="#757575" />
 
@@ -77,7 +80,8 @@
         android:layout_below="@id/contrasena"
         android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="30dp"
-        android:background="@color/white"
+        android:background="@drawable/rounded_edittext_bg"
+        android:paddingHorizontal="10dp"
         android:ems="10"
         android:hint="Confirmar contraseña"
         android:inputType="textPassword"

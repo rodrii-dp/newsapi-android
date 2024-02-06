@@ -1,21 +1,23 @@
 package com.rodrigo.newsapi;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 public class NewsDetailActivity extends AppCompatActivity {
 
-    private Button button;
     private TextView title, author, content;
-    private ImageView imageView;
+    private ImageView imageView, button;
     private NewsService mNewsService;
     private UserService mUserService;
     @Override
@@ -42,10 +44,19 @@ public class NewsDetailActivity extends AppCompatActivity {
         content.setText(news.getContent());
         Glide.with(this).load(news.getUrlToImage()).into(imageView);
 
-        button.setOnClickListener(v -> saveNews(news, user.getName()));
+        button.setOnClickListener(v -> saveNews(news, user));
     }
 
-    private void saveNews(News news, String username){
-        mNewsService.saveNews(news, username);
+    private void saveNews(News news, User user){
+        boolean isRepeated = mNewsService.countNewsByUserIdAndTitle(user.getId(), news.getTitle()) >= 1;
+        if (isRepeated){
+            mNewsService.deleteNews(news);
+            Toast.makeText(this, "Noticia eliminada de favoritos.", Toast.LENGTH_SHORT).show();
+            button.setColorFilter(ContextCompat.getColor(this, R.color.darker_gray));
+        } else {
+            mNewsService.saveNews(news, user.getName());
+            Toast.makeText(this, "¡Noticia guardada!", Toast.LENGTH_SHORT).show();
+            button.setColorFilter(ContextCompat.getColor(this, R.color.yellow));
+        }
     }
 }

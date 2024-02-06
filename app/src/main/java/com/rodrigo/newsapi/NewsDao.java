@@ -20,4 +20,7 @@ public interface NewsDao {
 
     @Delete
     void deleteNews(News news);
+
+    @Query("SELECT COUNT(*) FROM news WHERE userId = :userId AND title = :title")
+    int countNewsByUserIdAndTitle(int userId, String title);
 }
