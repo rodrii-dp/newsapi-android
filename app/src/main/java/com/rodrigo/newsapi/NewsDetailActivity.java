@@ -5,9 +5,6 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +29,8 @@ public class NewsDetailActivity extends AppCompatActivity {
         mNewsService = NewsService.get(this);
         mUserService = UserService.get(this);
 
+        boolean isRepeated = mNewsService.countNewsByUserIdAndTitle(user.getId(), news.getTitle()) >= 1;
+
 
         title = findViewById(R.id.titleDetail);
         author = findViewById(R.id.authorDetail);
@@ -39,10 +38,18 @@ public class NewsDetailActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageDetail);
         button = findViewById(R.id.btSaveNews);
 
+        String placeholder = "- " + news.getAuthor();
+
         title.setText(news.getTitle());
-        author.setText(news.getAuthor());
+        author.setText(placeholder);
         content.setText(news.getContent());
         Glide.with(this).load(news.getUrlToImage()).into(imageView);
+
+        if (isRepeated){
+            button.setColorFilter(ContextCompat.getColor(this, R.color.yellow));
+        } else {
+            button.setColorFilter(ContextCompat.getColor(this, R.color.darker_gray));
+        }
 
         button.setOnClickListener(v -> saveNews(news, user));
     }

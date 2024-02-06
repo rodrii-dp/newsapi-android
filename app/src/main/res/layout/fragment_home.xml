@@ -18,7 +18,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buscador"/>
+        android:layout_below="@id/btFiltro"/>
 
     <EditText
         android:id="@+id/buscador"
@@ -29,9 +29,13 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
+        android:background="@drawable/rounded_edittext_bg"
         android:ems="10"
-        android:hint="Buscar"
-        android:inputType="text">
+        android:hint="@string/buscar"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:padding="6dp"
+        android:paddingHorizontal="10dp">
 
 
     </EditText>
@@ -40,13 +44,30 @@
         android:id="@+id/limite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_margin="10dp"
         android:layout_below="@id/tv_home"
+        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_toEndOf="@id/buscador"
-        android:hint="Número de noticias"
-        android:text="5"
-        android:inputType="number" />
+        android:background="@drawable/rounded_edittext_bg"
+        android:ems="10"
+        android:hint="@string/n_mero_de_noticias"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:padding="6dp"
+        android:paddingHorizontal="10dp"
+        android:text="@string/_5" />
+
+    <Button
+        android:id="@+id/btFiltro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buscador"
+        android:text="@string/filtrar"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/light_blue"/>
 
 
 </RelativeLayout>

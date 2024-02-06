@@ -34,6 +34,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
+        android:elevation="10dp"
+        android:fontFamily="@font/salmond_semibold"
         android:layout_margin="3dp"/>
 
     <TextView
@@ -41,20 +43,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="17sp"
+        android:elevation="10dp"
+        android:fontFamily="@font/salmond_semibold"
         android:layout_margin="3dp"/>
 
     <ScrollView
         android:id="@id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:elevation="10dp">
         <TextView
             android:id="@+id/contentDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:layout_margin="3dp"
-            android:maxLines="100"
-            android:ellipsize="none"
+            android:layout_margin="10dp"
+            android:elevation="100dp"
             android:scrollbars="vertical"/>
     </ScrollView>
 
