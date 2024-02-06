@@ -4,11 +4,15 @@
         android:id="@+id/action_dashboard"
         android:icon="@drawable/casa"
         android:iconTint="@color/white"
-        android:title="Inicio"></item>
+        android:title="@string/inicio">
+
+    </item>
 
     <item
         android:id="@+id/action_favorites"
-        android:icon="@drawable/favorito"
+        android:icon="@drawable/perfil"
         android:iconTint="@color/white"
-        android:title="Perfil"></item>
+        android:title="@string/perfil">
+
+    </item>
 </menu>

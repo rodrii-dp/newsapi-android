@@ -4,8 +4,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "news")
-public class News {
+public class News implements Serializable {
 
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
@@ -24,17 +26,17 @@ public class News {
     private String content;
 
     @ColumnInfo(name = "imageUrl")
-    private String imageUrl;
+    private String urlToImage;
 
     @ColumnInfo(name = "userId")
     private int userId;
 
-    public News(String author, String title, String description, String content, String imageUrl) {
+    public News(String author, String title, String description, String content, String urlToImage) {
         this.author = author;
         this.title = title;
         this.description = description;
         this.content = content;
-        this.imageUrl = imageUrl;
+        this.urlToImage = urlToImage;
     }
 
     public String getAuthor() {
@@ -77,12 +79,12 @@ public class News {
         this.content = content;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getUrlToImage() {
+        return urlToImage;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setUrlToImage(String urlToImage) {
+        this.urlToImage = urlToImage;
     }
 
     public int getUserId() {

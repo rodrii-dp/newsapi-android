@@ -31,12 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         contrasenaEdit = findViewById(R.id.contrasena);
         boton = findViewById(R.id.boton);
 
-        boton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login();
-            }
-        });
+        boton.setOnClickListener(v -> login());
 
     }
     private void login() {
@@ -57,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     private User checkUser(String nombreUsuarioIng, String contrasena) {
         User user = userService.getUserbyName(nombreUsuarioIng);
 
+        Log.i(TAG, "checkUser: " + user.getPassword());
         if (user != null && user.getPassword().equals(contrasena)) {
             Log.d(TAG, "checkUsuario: Usuario encontrado y contraseña correcta");
             return user;

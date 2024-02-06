@@ -1,5 +1,6 @@
 package com.rodrigo.newsapi;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -20,13 +20,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements NewsClickListener{
 
     private static final String BASE_URL = "https://newsapi.org/";
     private static final String API_KEY = "5d25a6ea55ae4ff6b36235e3cdab69e7";
     private static final String TAG = "NEWS API";
-    private NewsService mNewsService;
-    private UserService mUserService;
+    private User user;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -41,12 +40,15 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        Bundle bundle = getArguments();
+        user = (User) bundle.getSerializable("usuario");
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         NewsAPI newsAPI = retrofit.create(NewsAPI.class);
-        Call<NewsResponse> newsResponseCall = newsAPI.getTopHeadlines("es", API_KEY);
+        Call<NewsResponse> newsResponseCall = newsAPI.getTopHeadlines("us", API_KEY);
 
         newsResponseCall.enqueue(new Callback<NewsResponse>() {
             @Override
@@ -59,7 +61,7 @@ public class HomeFragment extends Fragment {
                             RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
                             recyclerView.setLayoutManager(linearLayoutManager);
-                            recyclerView.setAdapter(new RvAdapter(newsList, getContext()));
+                            recyclerView.setAdapter(new RvAdapter(newsList, requireContext(), HomeFragment.this, user));
                         }
                     }
                 } else {
@@ -73,5 +75,13 @@ public class HomeFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public void onNewsClick(News clickedNews, User user) {
+        Intent intent = new Intent(getContext(), NewsDetailActivity.class);
+        intent.putExtra("news", clickedNews);
+        intent.putExtra("usuario", user);
+        startActivity(intent);
     }
 }
