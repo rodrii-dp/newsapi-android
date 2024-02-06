@@ -45,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (!Objects.equals(usuarioStr, "") && !Objects.equals(contrasena, "") && !conf.equals("")) {
             if (checkFields(usuarioStr, contrasena, conf, checkBox)) {
                 User usuario = new User(usuarioStr, contrasena);
+                userService.saveUser(usuario);
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
@@ -58,39 +59,39 @@ public class RegisterActivity extends AppCompatActivity {
         return user != null;
     }
 
-    public boolean safePassword(String contrasena) {
-        if (contrasena.length() < 8) {
-            return false;
-        }
-
-        // Verificar la presencia de letras mayúsculas
-        Pattern mayusculaPattern = Pattern.compile("[A-Z]");
-        Matcher mayusculaMatcher = mayusculaPattern.matcher(contrasena);
-        if (!mayusculaMatcher.find()) {
-            return false;
-        }
-
-        // Verificar la presencia de letras minúsculas
-        Pattern minusculaPattern = Pattern.compile("[a-z]");
-        Matcher minusculaMatcher = minusculaPattern.matcher(contrasena);
-        if (!minusculaMatcher.find()) {
-            return false;
-        }
-
-        // Verificar la presencia de números
-        Pattern numeroPattern = Pattern.compile("[0-9]");
-        Matcher numeroMatcher = numeroPattern.matcher(contrasena);
-        if (!numeroMatcher.find()) {
-            return false;
-        }
-
-        // Verificar la presencia de caracteres especiales
-        Pattern especialPattern = Pattern.compile("[!@#$%^&*()_+\\-=\\[\\]{};':\",.<>/?]");
-        Matcher especialMatcher = especialPattern.matcher(contrasena);
-        return especialMatcher.find();
-
-        // Si pasa todas las verificaciones, la contraseña es considerada segura
-    }
+//    public boolean safePassword(String contrasena) {
+//        if (contrasena.length() < 8) {
+//            return false;
+//        }
+//
+//        // Verificar la presencia de letras mayúsculas
+//        Pattern mayusculaPattern = Pattern.compile("[A-Z]");
+//        Matcher mayusculaMatcher = mayusculaPattern.matcher(contrasena);
+//        if (!mayusculaMatcher.find()) {
+//            return false;
+//        }
+//
+//        // Verificar la presencia de letras minúsculas
+//        Pattern minusculaPattern = Pattern.compile("[a-z]");
+//        Matcher minusculaMatcher = minusculaPattern.matcher(contrasena);
+//        if (!minusculaMatcher.find()) {
+//            return false;
+//        }
+//
+//        // Verificar la presencia de números
+//        Pattern numeroPattern = Pattern.compile("[0-9]");
+//        Matcher numeroMatcher = numeroPattern.matcher(contrasena);
+//        if (!numeroMatcher.find()) {
+//            return false;
+//        }
+//
+//        // Verificar la presencia de caracteres especiales
+//        Pattern especialPattern = Pattern.compile("[!@#$%^&*()_+\\-=\\[\\]{};':\",.<>/?]");
+//        Matcher especialMatcher = especialPattern.matcher(contrasena);
+//        return especialMatcher.find();
+//
+//        // Si pasa todas las verificaciones, la contraseña es considerada segura
+//    }
 
     private boolean checkFields(String usuario, String contrasena, String conf, CheckBox checkBox) {
         if (userExists(usuario)) {
@@ -98,10 +99,10 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
         }
 
-        if (!safePassword(contrasena)) {
-            Toast.makeText(RegisterActivity.this, "Contraseña insegura", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+//        if (!safePassword(contrasena)) {
+//            Toast.makeText(RegisterActivity.this, "Contraseña insegura", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
 
         if (!conf.equals(contrasena)) {
             Toast.makeText(RegisterActivity.this, "Contraseña de confirmación incorrecta", Toast.LENGTH_SHORT).show();
