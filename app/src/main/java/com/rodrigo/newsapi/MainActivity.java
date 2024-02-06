@@ -20,19 +20,18 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         User user = (User) intent.getSerializableExtra("usuario");
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("usuario", user);
+        replaceHomeFragment(bundle);
 
         home = R.id.action_dashboard;
         saved = R.id.action_favorites;
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav);
         bottomNavigationView.setOnItemSelectedListener(item -> {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("usuario", user);
             int itemId = item.getItemId();
             if (itemId == home) {
-                HomeFragment homeFragment = new HomeFragment();
-                homeFragment.setArguments(bundle);
-                replaceFragment(homeFragment);
+                replaceHomeFragment(bundle);
                 return true;
             } else if (itemId == saved) {
                 FavoritesFragment favoritesFragment = new FavoritesFragment();
@@ -46,11 +45,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    private void replaceHomeFragment(Bundle bundle) {
+        HomeFragment homeFragment = new HomeFragment();
+        homeFragment.setArguments(bundle);
+        replaceFragment(homeFragment);
     }
 }
